@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,36 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/students', [StudentController::class, 'index']);
+// student
+Route::get('/students', [StudentController::class, 'index'])
+    ->name('students.index');
 
-Route::get('/students/{id}', [StudentController::class, 'registration']);
+Route::get('/students/create', [StudentController::class, 'create'])
+    ->name('students.create');
 
-require __DIR__.'/auth.php';
+Route::get('/students/{id}', [StudentController::class, 'detail']);
+
+Route::post('/students', [StudentController::class, 'store'])
+    ->name('students.store');
+
+Route::get('/students/{id}/edit', [StudentController::class, 'edit'])
+    ->name('students.edit');
+
+Route::patch('/students/{id}', [StudentController::class, 'update'])
+    ->name('students.update');
+
+Route::delete('/students/{id}', [StudentController::class, 'destroy'])
+    ->name('students.destroy');
+
+
+// registration
+Route::get('/registrations/create', [RegisterController::class, 'create'])
+    ->name('registrations.create');
+
+Route::post('/registrations', [RegisterController::class, 'store'])
+    ->name('registrations.store');
+
+Route::post('/registrations/check-student', [RegisterController::class, 'checkStudent']);
+Route::post('/registrations/check-course', [RegisterController::class, 'checkCourse']);
+
+require __DIR__ . '/auth.php';
