@@ -24,6 +24,13 @@ export default function Index({ students, query, sortColumn, sortDirection }) {
         router.get('/students', { search, sort: column, direction });
     };
 
+    // delete function
+    const handleDelete = (studentID) => {
+        if (confirm('Are you sure you want to delete this product?')) {
+            router.delete(`/students/${studentID}`);
+        }
+    };
+
     return (
         <div className="p-8 bg-gray-100 min-h-screen">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Student List</h1>
@@ -45,7 +52,7 @@ export default function Index({ students, query, sortColumn, sortDirection }) {
                 </button>
             </form>
 
-            {/* Employee Table */}
+            {/* Students Table */}
             <div className="overflow-x-auto mb-6">
                 <table className="min-w-full bg-white rounded-lg shadow-md">
                     <thead className="bg-blue-500 text-white">
@@ -90,10 +97,23 @@ export default function Index({ students, query, sortColumn, sortDirection }) {
                                 <td className="px-6 py-4 text-sm text-gray-700">
                                     <Link
                                         href={`/students/${student.id}`}
-                                        className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="mr-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     >
                                         Detail
                                     </Link>
+
+                                    <Link
+                                        href={`/students/${student.id}/edit`}
+                                        className="mr-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        Edit
+                                    </Link>
+
+                                    <button onClick={() => handleDelete(student.id)}
+                                        className="mr-2 px-4 py-2 bg-red-500 text-white font-semibold rounded-md shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    > 
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}

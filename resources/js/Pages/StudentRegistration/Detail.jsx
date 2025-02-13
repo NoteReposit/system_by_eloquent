@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/react";
 
-export default function Registration({ student }) {
+export default function Detail({ student }) {
     // ถ้าไม่มีข้อมูลนักศึกษา
     if (!student) {
         return (
